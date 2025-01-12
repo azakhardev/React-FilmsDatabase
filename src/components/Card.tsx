@@ -8,14 +8,21 @@ const Card: React.FC<{
 }> = (props) => {
   return (
     <motion.div
-      whileHover={{ scale: 1.1 }}
-      className="rounded-2xl p-5 border-solid border-gray-400 border-[1px] min-w-[300px] max-w-[420px] bg-neutral-300 max-h-[1000px] overflow-hidden"
+      whileHover={{ scale: 1.05 }}
+      className="rounded-2xl p-5 border-solid border-[#3B1C32] border-[1px] min-w-[300px] max-w-[420px] bg-[#6A1E55] max-h-[1000px] overflow-hidden text-[#F0F0F0]"
     >
       <Link
         to={`/detail/${props.movie.id}`}
         className="flex flex-col gap-1 cursor-pointer"
       >
-        <div>
+        <div className="relative">
+          {props.movie.adult && (
+            <img
+              className="absolute top-2 right-2 backdrop-blur-sm"
+              src="/Adult.jpg"
+              width={100}
+            />
+          )}
           <img
             className="rounded-md"
             src={
@@ -25,6 +32,7 @@ const Card: React.FC<{
             }
           />
         </div>
+
         <h3 className="font-bold text-[20px]">
           {props.movie.title ? props.movie.title : props.movie.name}
         </h3>
@@ -37,7 +45,7 @@ const Card: React.FC<{
           <div>
             Rating:{" "}
             <span
-              className="rounded-[50%] bg-slate-500 px-2 py-1 text-white"
+              className="rounded-[50%] text-black bg-[#FFD700] px-2 py-1 "
               title={`Average Rating - ${props.movie.vote_average}`}
             >
               {Math.round(props.movie.vote_average * 10) / 10}

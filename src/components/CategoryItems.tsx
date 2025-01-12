@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { Dispatch, SetStateAction, useContext } from "react";
 import { FiltersContext } from "../store";
 
-const CategorySections: React.FC = (props) => {
+const CategorySections: React.FC<{
+  onFiltering: Dispatch<SetStateAction<boolean>>;
+}> = (props) => {
   const context = useContext(FiltersContext);
 
   let categoryList = [];
@@ -16,11 +18,12 @@ const CategorySections: React.FC = (props) => {
       {categoryList.map((s) => (
         <div
           onClick={() => {
-            context.updateFilter("section", s);
+            context.updateFilterProperty("section", s);
+            props.onFiltering(false);
           }}
-          className={`flex justify-center items-center bg-yellow-300 text-white px-2 py-1 capitalize text-center font-bold rounded-lg cursor-pointer flex-1 ${
+          className={`flex justify-center items-center bg-[#FFD700] px-2 py-1 capitalize text-center font-bold rounded-lg cursor-pointer flex-1 ${
             context.filter.section === s
-              ? "border-[1px] border-gray-700"
+              ? "border-[1px] border-white"
               : undefined
           }`}
           key={s}

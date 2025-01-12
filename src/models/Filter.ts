@@ -1,10 +1,12 @@
 export type Filter = {
   genreId: number;
   category: string;
+  english: boolean;
   section: string;
   adult: boolean;
   page: number;
-  date: number;
-  title: string;
+  dateStart: string;
+  dateEnd: string;
+  sortBy: string;
   rating: number;
 };

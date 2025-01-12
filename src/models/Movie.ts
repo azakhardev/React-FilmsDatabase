@@ -5,6 +5,7 @@ export interface Movie {
   name: string;
   poster_path: string;
   overview: string;
+  original_language: string;
   vote_average: number;
   release_date: string;
   first_air_date: string;

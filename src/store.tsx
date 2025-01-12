@@ -3,21 +3,28 @@ import { Filter } from "./models/Filter";
 
 type FiltersContextObj = {
   filter: Filter;
-  updateFilter: (property: keyof Filter, newValue: string | number) => void;
+  updateFilter: (filter: Filter) => void;
+  updateFilterProperty: (
+    property: keyof Filter,
+    newValue: string | number
+  ) => void;
 };
 
 export const FiltersContext = React.createContext<FiltersContextObj>({
   filter: {
     genreId: 0,
+    english: false,
     category: "movie",
     section: "popular",
     adult: false,
     page: 1,
-    date: 2024,
-    title: "",
+    dateStart: new Date().toDateString(),
+    dateEnd: new Date().toDateString(),
+    sortBy: "popularity",
     rating: 0,
   },
-  updateFilter: (
+  updateFilter: (filter: Filter) => {},
+  updateFilterProperty: (
     property: keyof Filter,
     newValue: string | number | boolean
   ) => {},
@@ -30,16 +37,22 @@ interface Props {
 const FiltersContextProvider: React.FC<Props> = ({ children }: Props) => {
   const [filter, setFilter] = useState<Filter>({
     genreId: 0,
+    english: false,
     category: "movie",
     section: "popular",
     adult: false,
     page: 1,
-    date: 2024,
-    title: "",
+    dateStart: new Date(0).toISOString().slice(0, 10),
+    dateEnd: new Date().toISOString().slice(0, 10),
+    sortBy: "popularity",
     rating: 0,
   });
 
-  function handleUpdateFilter(
+  function handleUpdateFilter(filter: Filter) {
+    setFilter(filter);
+  }
+
+  function handleUpdateFilterProperty(
     property: keyof Filter,
     newValue: string | number | boolean
   ) {
@@ -53,6 +66,7 @@ const FiltersContextProvider: React.FC<Props> = ({ children }: Props) => {
   const contextValue: FiltersContextObj = {
     filter: filter,
     updateFilter: handleUpdateFilter,
+    updateFilterProperty: handleUpdateFilterProperty,
   };
 
   return (
