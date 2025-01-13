@@ -46,7 +46,7 @@ const Card: React.FC<{
             Rating:{" "}
             <span
               className="rounded-[50%] text-black bg-[#FFD700] px-2 py-1 "
-              title={`Average Rating - ${props.movie.vote_average}`}
+              title={`Total Votes: ${props.movie.vote_count}`}
             >
               {Math.round(props.movie.vote_average * 10) / 10}
             </span>

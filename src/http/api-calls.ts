@@ -3,7 +3,9 @@ import { token } from "./authorization";
 import { Genre } from "../models/Genre";
 import { Movie } from "../models/Movie";
 import { Filter } from "../models/Filter";
+import { Detail } from "../models/Detail.ts";
 import { EXCLUDE_COUNTRIES } from "../util/utility.ts";
+import { Video } from "../models/Video.ts";
 
 const language = navigator.language;
 
@@ -44,7 +46,9 @@ export async function getMovies(filter: Filter): Promise<Movie[]> {
 
   if (!response.ok) {
     throw new Error(
-      "An error occured during Films loading, please try again later!"
+      `An error occured during ${
+        filter.category === "movie" ? "Movie" : "Series"
+      } loading, please try again later!`
     );
   }
 
@@ -68,7 +72,7 @@ export async function getDiscovery(filter: Filter): Promise<Movie[]> {
     filter.dateEnd
   }&first_air_date.lte=${filter.dateEnd}&vote_average.gte=${
     filter.rating
-  }&sort_by=${filter.sortBy}`;
+  }&sort_by=${filter.sortBy}&vote_count.gte=5`;
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -79,7 +83,9 @@ export async function getDiscovery(filter: Filter): Promise<Movie[]> {
 
   if (!response.ok) {
     throw new Error(
-      "An error occured during Films loading, please try again later!"
+      `An error occured during ${
+        filter.category === "movie" ? "Movie" : "Series"
+      } loading, please try again later!`
     );
   }
 
@@ -92,4 +98,120 @@ export async function getDiscovery(filter: Filter): Promise<Movie[]> {
   return filteredMovies;
 }
 
+export async function getDetail(
+  id: string,
+  category: string,
+  english: boolean
+): Promise<Detail> {
+  const url = `https://api.themoviedb.org/3/${category}/${id}?language=${
+    english ? "en-US" : language
+  }`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `An error occured during loading Details for your ${
+        category === "movie" ? "Movie" : "Series"
+      }, please try again later!`
+    );
+  }
+
+  const data = await response.json();
+
+  return data;
+}
+
+export async function getCast(
+  id: string,
+  category: string,
+  english: boolean
+): Promise<Detail> {
+  const url = `https://api.themoviedb.org/3/${category}/${id}/credits?language=${
+    english ? "en-US" : language
+  }`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `An error occured during loading Cast for your ${
+        category === "movie" ? "Movie" : "Series"
+      }, please try again later!`
+    );
+  }
+
+  const data = await response.json();
+
+  return data.cast;
+}
+
+export async function getSimilar(
+  id: string,
+  category: string,
+  english: boolean
+): Promise<Movie[]> {
+  const url = `https://api.themoviedb.org/3/${category}/${id}/similar?language=${
+    english ? "en-US" : language
+  }`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `An error occured during loading Similar ${
+        category === "movie" ? "Movie" : "Series"
+      }, please try again later!`
+    );
+  }
+
+  const data = await response.json();
+
+  return data.results;
+}
+export async function getVideos(
+  id: string,
+  category: string,
+  english: boolean
+): Promise<Video[]> {
+  const url = `https://api.themoviedb.org/3/${category}/${id}/videos?language=en-US`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `An error occured during loading Trailers for your ${
+        category === "movie" ? "Movie" : "Series"
+      }, please try again later!`
+    );
+  }
+
+  const data = await response.json();
+
+  return data.results.filter((v: Video) => v.type === "Trailer");
+}
 export const queryClient = new QueryClient();

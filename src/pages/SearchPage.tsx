@@ -44,7 +44,7 @@ const SearchPage: React.FC<{}> = (props) => {
             setFiltering(false);
           }}
         >
-          TV Shows
+          TV Series
         </motion.button>
       </div>
       <CategorySections onFiltering={setFiltering} />
