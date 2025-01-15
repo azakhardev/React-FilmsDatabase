@@ -6,7 +6,7 @@ type FiltersContextObj = {
   updateFilter: (filter: Filter) => void;
   updateFilterProperty: (
     property: keyof Filter,
-    newValue: string | number
+    newValue: string | number | boolean
   ) => void;
 };
 

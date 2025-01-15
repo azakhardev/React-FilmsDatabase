@@ -1,3 +1,5 @@
+import { Genre } from "./Genre";
+
 export type Detail = {
   adult: boolean;
   backdrop_path: string | null;
@@ -8,10 +10,7 @@ export type Detail = {
   }[];
   episode_run_time: number[];
   first_air_date: string;
-  genres: {
-    id: number;
-    name: string;
-  }[];
+  genres: Genre[];
   homepage: string | null;
   id: number;
   languages: string[];

@@ -10,6 +10,7 @@ import NavigationButtons from "./NavigationButtons";
 
 const MoviesList: React.FC<{ filtering: boolean }> = (props) => {
   const { filter } = useContext(FiltersContext);
+
   const moviesQuery = useQuery({
     queryKey: ["movies", filter, props.filtering],
     queryFn: (metaObject) => {
@@ -30,12 +31,16 @@ const MoviesList: React.FC<{ filtering: boolean }> = (props) => {
     <div>
       <div className="flex flex-row flex-wrap justify-center gap-[80px] mb-[50px]">
         {!moviesQuery.isLoading && moviesQuery.data ? (
-          moviesQuery.data.map((movie) => <Card key={movie.id} movie={movie} />)
+          moviesQuery.data.movies.map((movie) => (
+            <Card minWidth={300} key={movie.id} movie={movie} />
+          ))
         ) : (
           <SpinningLoader />
         )}
       </div>
-      {!moviesQuery.isLoading && <NavigationButtons />}
+      {!moviesQuery.isLoading && (
+        <NavigationButtons totalPages={moviesQuery.data!.total_pages} />
+      )}
     </div>
   );
 };

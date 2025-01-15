@@ -34,7 +34,7 @@ const FilterComponent: React.FC<{
       genreId: Number(formData.get("genre")),
       category: context.filter.category,
       english: formData.get("english") === "on",
-      section: context.filter.section,
+      section: "",
       adult: formData.get("adult") === "on",
       page: 1,
       dateStart: formData.get("yearStart") as string,
@@ -49,11 +49,14 @@ const FilterComponent: React.FC<{
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:flex gap-4 w-[100%] mt-8 mb-10 bg-[#A05283] px-5 py-3 rounded-2xl ">
-        <div className="flex flex-row flex-1 gap-1">
+      <div className="grid grid-cols-2 md:grid-cols-3 2xl:flex gap-4 w-[100%] mt-8 mb-10 bg-[#A05283] px-5 py-3 rounded-2xl ">
+        <div className="flex flex-row flex-1 gap-1 col-start-1 col-end-3">
           <div className="flex flex-col flex-1">
             <label>Sort By:</label>
-            <select name="sortBy">
+            <select
+              name="sortBy"
+              defaultValue={context.filter.sortBy.split(".")[0]}
+            >
               {Object.entries(
                 context.filter.category === "movie"
                   ? MOVIES_SORT_METHODS
@@ -66,8 +69,11 @@ const FilterComponent: React.FC<{
             </select>
           </div>
           <div className="flex flex-col">
-            <label>Sort By:</label>
-            <select name="order" defaultValue=".asc">
+            <label>Order By:</label>
+            <select
+              name="order"
+              defaultValue={"." + context.filter.sortBy.split(".")[1]}
+            >
               <option value=".asc">Asc.</option>
               <option value=".desc">Desc.</option>
             </select>
@@ -75,7 +81,11 @@ const FilterComponent: React.FC<{
         </div>
         <div className="flex flex-col flex-1">
           <label>Genre:</label>
-          <select name="genre" defaultValue={context.filter.genreId}>
+          <select
+            className="capitalize"
+            name="genre"
+            defaultValue={context.filter.genreId}
+          >
             {genresQuery.isError && (
               <option disabled>Failed to load genres</option>
             )}
@@ -117,24 +127,45 @@ const FilterComponent: React.FC<{
             defaultValue={context.filter.dateEnd}
           />
         </div>
-        <div className="flex flex-col flex-1 justify-end items-start">
+        <div className="flex flex-row justify-between md:justify-around 2xl:flex-col 2xl:justify-end items-start col-start-1 col-end-3 md:col-end-4 text-center">
           <div>
             <label htmlFor="adult">For Adults:</label>
             <label className="switch">
-              <input id="adult" type="checkbox" name="adult" />
+              <input
+                id="adult"
+                type="checkbox"
+                name="adult"
+                defaultChecked={context.filter.adult}
+                onChange={(change) => {
+                  console.log(change.target.value);
+                  context.updateFilterProperty("adult", !context.filter.adult);
+                }}
+              />
               <span className="slider"></span>
             </label>
           </div>
           <div>
             <label htmlFor="english">Search in English: </label>
             <label className="switch">
-              <input id="english" type="checkbox" name="english" />
+              <input
+                id="english"
+                type="checkbox"
+                name="english"
+                defaultChecked={context.filter.english}
+                onChange={(change) => {
+                  console.log(change.target.value);
+                  context.updateFilterProperty(
+                    "english",
+                    !context.filter.english
+                  );
+                }}
+              />
               <span className="slider"></span>
             </label>
           </div>
         </div>
         <div className="flex col-span-2 md:col-span-3 flex-row justify-center">
-          <button className="flex w-[100%] h-[100%] lg:w-auto lg:h-auto justify-center items-center bg-[#E5E5E5] my-1 lg:my-2 px-8 rounded flex-shrink-[2]">
+          <button className="flex w-[100%] h-[100%] 2xl:w-auto 2xl:h-auto justify-center items-center bg-[#E5E5E5] my-1 2xl:my-2 px-8 rounded flex-shrink-[2]">
             <i className="bx bx-search-alt-2 text-[24px]"></i>
           </button>
         </div>

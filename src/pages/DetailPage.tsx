@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { getCast, getDetail, getSimilar, getVideos } from "../http/api-calls";
+import { getDetail, getSimilar, getVideos } from "../http/api-calls";
 import { useContext } from "react";
 import { FiltersContext } from "../store";
 import SpinningLoader from "../components/SpinningLoader";
 import ErrorBlock from "../components/ErrorBlock";
+import DetailOverviev from "../components/DetailOverview";
+import Videos from "../components/Videos";
+import Similar from "../components/Similar";
 
 const DetailPage: React.FC<{}> = (props) => {
   const { id } = useParams();
@@ -16,24 +19,6 @@ const DetailPage: React.FC<{}> = (props) => {
       getDetail(id!, context.filter.category, context.filter.english),
   });
 
-  const castQuery = useQuery({
-    queryKey: ["cast", id],
-    queryFn: (metaObj) =>
-      getCast(id!, context.filter.category, context.filter.english),
-  });
-
-  const similarQuery = useQuery({
-    queryKey: ["similar", id],
-    queryFn: (metaObj) =>
-      getSimilar(id!, context.filter.category, context.filter.english),
-  });
-
-  const videosQuery = useQuery({
-    queryKey: ["videos", id],
-    queryFn: (metaObj) =>
-      getVideos(id!, context.filter.category, context.filter.english),
-  });
-
   if (detailQuery.isError) {
     return (
       <ErrorBlock
@@ -43,11 +28,17 @@ const DetailPage: React.FC<{}> = (props) => {
     );
   }
 
-  console.log(videosQuery.data);
-
   return (
-    <div className="flex my-1 md:my-4 xl:my-8 flex-col">
-      <SpinningLoader />
+    <div className="mx-2 flex my-1 md:my-4 xl:my-8 flex-col justify-center text-[#A6A6A6] md:mx-[100px] xl:mx-[150px] 2xl:mx-[200px]">
+      {!detailQuery.isLoading && detailQuery.data ? (
+        <>
+          <DetailOverviev data={detailQuery.data} />
+          <Videos id={id!} />
+          <Similar id={id!} />
+        </>
+      ) : (
+        <SpinningLoader />
+      )}
     </div>
   );
 };

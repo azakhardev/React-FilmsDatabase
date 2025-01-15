@@ -28,7 +28,7 @@ const CategorySections: React.FC<{
           }`}
           key={s}
         >
-          {s.replace("_", " ")}
+          {s.replace("_", " ").replace("_", " ")}
         </div>
       ))}
     </div>
