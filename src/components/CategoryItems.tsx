@@ -19,11 +19,12 @@ const CategorySections: React.FC<{
         <div
           onClick={() => {
             context.updateFilterProperty("section", s);
+            context.updateFilterProperty("page", 1);
             props.onFiltering(false);
           }}
           className={`flex justify-center items-center bg-[#FFD700] px-2 py-1 capitalize text-center font-bold rounded-lg cursor-pointer flex-1 ${
             context.filter.section === s
-              ? "border-[1px] border-white"
+              ? "border-[2px] border-[#F05454]"
               : undefined
           }`}
           key={s}

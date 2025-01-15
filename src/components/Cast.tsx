@@ -4,13 +4,13 @@ import { FiltersContext } from "../store";
 import { getCast } from "../http/api-calls";
 import ErrorBlock from "./ErrorBlock";
 import SpinningLoader from "./SpinningLoader";
+import Profile from "./Profile";
 const Cast: React.FC<{ id: string }> = (props) => {
   const context = useContext(FiltersContext);
 
   const castQuery = useQuery({
-    queryKey: ["cast", props.id],
-    queryFn: (metaObj) =>
-      getCast(props.id, context.filter.category, context.filter.english),
+    queryKey: ["detail-cast", props.id],
+    queryFn: (metaObj) => getCast(props.id, context.filter.category),
   });
 
   if (castQuery.isError) {
@@ -20,9 +20,9 @@ const Cast: React.FC<{ id: string }> = (props) => {
   }
 
   return (
-    <div>
+    <div className="flex flex-row gap-2">
       {!castQuery.isLoading && castQuery.data ? (
-        castQuery.data.map((c) => <div key={c.id}>{c.name}</div>)
+        castQuery.data.map((c) => <Profile cast={c} key={c.id} />)
       ) : (
         <SpinningLoader />
       )}

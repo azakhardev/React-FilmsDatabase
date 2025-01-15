@@ -4,14 +4,9 @@ import { motion } from "framer-motion";
 import FilterComponent from "../components/Filter";
 import CategorySections from "../components/CategoryItems";
 import { FiltersContext } from "../store";
-import { useParams } from "react-router-dom";
 
 const SearchPage: React.FC<{}> = (props) => {
-  const params = useParams();
   const context = useContext(FiltersContext);
-  const [filtering, setFiltering] = useState<boolean>(
-    params.filtering !== undefined
-  );
 
   return (
     <div className="flex justify-center flex-col mx-1 md:mx-10 xl:mx-32 ">
@@ -28,7 +23,7 @@ const SearchPage: React.FC<{}> = (props) => {
               context.updateFilterProperty("category", "movie");
               context.updateFilterProperty("section", "popular");
             }
-            setFiltering(false);
+            context.filteringHook[1](false);
           }}
         >
           Movies
@@ -45,15 +40,15 @@ const SearchPage: React.FC<{}> = (props) => {
               context.updateFilterProperty("category", "tv");
               context.updateFilterProperty("section", "popular");
             }
-            setFiltering(false);
+            context.filteringHook[1](false);
           }}
         >
           TV Series
         </motion.button>
       </div>
-      <CategorySections onFiltering={setFiltering} />
-      <FilterComponent onFilter={setFiltering} />
-      <MoviesList filtering={filtering} />
+      <CategorySections onFiltering={context.filteringHook[1]} />
+      <FilterComponent onFilter={context.filteringHook[1]} />
+      <MoviesList filtering={context.filteringHook[0]} />
     </div>
   );
 };

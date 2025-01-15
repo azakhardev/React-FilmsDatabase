@@ -32,7 +32,12 @@ const MoviesList: React.FC<{ filtering: boolean }> = (props) => {
       <div className="flex flex-row flex-wrap justify-center gap-[80px] mb-[50px]">
         {!moviesQuery.isLoading && moviesQuery.data ? (
           moviesQuery.data.movies.map((movie) => (
-            <Card minWidth={300} key={movie.id} movie={movie} />
+            <Card
+              filtering={props.filtering}
+              minWidth={300}
+              key={movie.id}
+              movie={movie}
+            />
           ))
         ) : (
           <SpinningLoader />

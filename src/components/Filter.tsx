@@ -5,21 +5,11 @@ import { FiltersContext } from "../store";
 import "boxicons/css/boxicons.min.css";
 import { Filter } from "../models/Filter";
 import { SHOWS_SORT_METHODS, MOVIES_SORT_METHODS } from "../util/utility";
-import { filter } from "framer-motion/client";
 
 const FilterComponent: React.FC<{
   onFilter: Dispatch<SetStateAction<boolean>>;
 }> = (props) => {
   const context = useContext(FiltersContext);
-
-  const sortOptions = Object.entries(
-    context.filter.category === "movie"
-      ? MOVIES_SORT_METHODS
-      : SHOWS_SORT_METHODS
-  ).map(([key, value]) => ({
-    value: key,
-    text: value,
-  }));
 
   const genresQuery = useQuery({
     queryKey: ["genres", context.filter.category],
@@ -136,8 +126,7 @@ const FilterComponent: React.FC<{
                 type="checkbox"
                 name="adult"
                 defaultChecked={context.filter.adult}
-                onChange={(change) => {
-                  console.log(change.target.value);
+                onChange={() => {
                   context.updateFilterProperty("adult", !context.filter.adult);
                 }}
               />
@@ -152,8 +141,7 @@ const FilterComponent: React.FC<{
                 type="checkbox"
                 name="english"
                 defaultChecked={context.filter.english}
-                onChange={(change) => {
-                  console.log(change.target.value);
+                onChange={() => {
                   context.updateFilterProperty(
                     "english",
                     !context.filter.english

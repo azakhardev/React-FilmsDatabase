@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDetail, getSimilar, getVideos } from "../http/api-calls";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { FiltersContext } from "../store";
 import SpinningLoader from "../components/SpinningLoader";
 import ErrorBlock from "../components/ErrorBlock";
 import DetailOverviev from "../components/DetailOverview";
 import Videos from "../components/Videos";
 import Similar from "../components/Similar";
+import Cast from "../components/Cast";
 
 const DetailPage: React.FC<{}> = (props) => {
   const { id } = useParams();
@@ -33,6 +34,7 @@ const DetailPage: React.FC<{}> = (props) => {
       {!detailQuery.isLoading && detailQuery.data ? (
         <>
           <DetailOverviev data={detailQuery.data} />
+          <Cast id={id!} />
           <Videos id={id!} />
           <Similar id={id!} />
         </>

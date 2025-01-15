@@ -4,11 +4,12 @@ import { FiltersContext } from "../store";
 
 const NavigationButtons: React.FC<{ totalPages: number }> = (props) => {
   const pageRef = useRef<HTMLInputElement>(null);
-
   const { filter, updateFilterProperty } = useContext(FiltersContext);
 
   function handleOnLeaveInput() {
-    updateFilterProperty("page", pageRef.current!.value);
+    const filteredPage = parseFloat(pageRef.current!.value);
+    if (filteredPage > 0 && filteredPage <= props.totalPages)
+      updateFilterProperty("page", pageRef.current!.value);
   }
 
   return (

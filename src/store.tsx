@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Filter } from "./models/Filter";
 
 type FiltersContextObj = {
+  filteringHook: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   filter: Filter;
   updateFilter: (filter: Filter) => void;
   updateFilterProperty: (
@@ -11,6 +12,7 @@ type FiltersContextObj = {
 };
 
 export const FiltersContext = React.createContext<FiltersContextObj>({
+  filteringHook: [false, () => {}],
   filter: {
     genreId: 0,
     english: false,
@@ -35,6 +37,7 @@ interface Props {
 }
 
 const FiltersContextProvider: React.FC<Props> = ({ children }: Props) => {
+  const [isFiltering, setIsFiltering] = useState<boolean>(false);
   const [filter, setFilter] = useState<Filter>({
     genreId: 0,
     english: false,
@@ -58,12 +61,13 @@ const FiltersContextProvider: React.FC<Props> = ({ children }: Props) => {
   ) {
     setFilter((oldFilter) => {
       const newFilter = { ...oldFilter };
-      (newFilter[property] as typeof newValue) = newValue;
+      (newFilter[property] as string | boolean | number) = newValue;
       return newFilter;
     });
   }
 
   const contextValue: FiltersContextObj = {
+    filteringHook: [isFiltering, setIsFiltering],
     filter: filter,
     updateFilter: handleUpdateFilter,
     updateFilterProperty: handleUpdateFilterProperty,

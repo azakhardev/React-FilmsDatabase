@@ -8,9 +8,8 @@ const Videos: React.FC<{ id: string }> = (props) => {
   const context = useContext(FiltersContext);
 
   const videosQuery = useQuery({
-    queryKey: ["cast", props.id],
-    queryFn: (metaObj) =>
-      getVideos(props.id, context.filter.category, context.filter.english),
+    queryKey: ["detail-videos", props.id],
+    queryFn: (metaObj) => getVideos(props.id, context.filter.category),
   });
 
   if (videosQuery.isError) {

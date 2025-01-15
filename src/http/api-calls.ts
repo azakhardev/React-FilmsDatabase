@@ -146,14 +146,8 @@ export async function getDetail(
   return data;
 }
 
-export async function getCast(
-  id: string,
-  category: string,
-  english: boolean
-): Promise<Cast[]> {
-  const url = `https://api.themoviedb.org/3/${category}/${id}/credits?language=${
-    english ? "en-US" : language
-  }`;
+export async function getCast(id: string, category: string): Promise<Cast[]> {
+  const url = `https://api.themoviedb.org/3/${category}/${id}/credits?language=en-US`;
 
   const response = await fetch(url, {
     method: "GET",
@@ -205,10 +199,10 @@ export async function getSimilar(
 
   return data.results;
 }
+
 export async function getVideos(
   id: string,
-  category: string,
-  english: boolean
+  category: string
 ): Promise<Video[]> {
   const url = `https://api.themoviedb.org/3/${category}/${id}/videos?language=en-US`;
 
