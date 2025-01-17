@@ -29,12 +29,7 @@ const Similar: React.FC<{ id: string }> = (props) => {
     <div className="flex flex-row gap-2 overflow-x-hidden overflow-y-visible">
       {!similarQuery.isLoading && similarQuery.data ? (
         similarQuery.data.map((s) => (
-          <Card
-            filtering={params.filtering === undefined}
-            minWidth={240}
-            key={s.id}
-            movie={s}
-          />
+          <Card minWidth={240} key={s.id} movie={s} />
         ))
       ) : (
         <SpinningLoader />

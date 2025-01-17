@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { FiltersContext } from "../store";
 
 const NavigationButtons: React.FC<{ totalPages: number }> = (props) => {
@@ -9,7 +9,7 @@ const NavigationButtons: React.FC<{ totalPages: number }> = (props) => {
   function handleOnLeaveInput() {
     const filteredPage = parseFloat(pageRef.current!.value);
     if (filteredPage > 0 && filteredPage <= props.totalPages)
-      updateFilterProperty("page", pageRef.current!.value);
+      updateFilterProperty("page", filteredPage);
   }
 
   return (
@@ -26,6 +26,7 @@ const NavigationButtons: React.FC<{ totalPages: number }> = (props) => {
       </motion.button>
       <div className="flex items-center text-white">
         <input
+          key={filter.page}
           min={1}
           max={props.totalPages}
           step={1}

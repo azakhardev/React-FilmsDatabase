@@ -1,25 +1,25 @@
 import { Cast } from "../models/Cast";
 
 const Profile: React.FC<{ cast: Cast }> = (props) => {
-  function handleMouseOver(
-    event: React.MouseEvent<HTMLImageElement>,
-    src: string
-  ) {
-    event.screenX;
-    event.screenY;
-    const path = `https://image.tmdb.org/t/p/w185/${src}`;
-  }
+  // function handleMouseOver(
+  //   event: React.MouseEvent<HTMLImageElement>,
+  //   src: string
+  // ) {
+  //   event.screenX;
+  //   event.screenY;
+  //   const path = `https://image.tmdb.org/t/p/w185/${src}`;
+  // }
 
   return (
     <div
       {...props}
-      className="border-[1px] border-[#B0BEC5] rounded p-4 text-center"
+      className="flex flex-col justify-center items-center border-[1px] border-[#B0BEC5] rounded p-4 text-center"
     >
       <div className="rounded-[50%] w-[120px] h-[120px] overflow-hidden flex items-center">
         <img
-          onMouseOver={(event) =>
-            handleMouseOver(event, props.cast.profile_path)
-          }
+          // onMouseOver={(event) =>
+          //   handleMouseOver(event, props.cast.profile_path)
+          // }
           src={
             props.cast.profile_path
               ? `https://image.tmdb.org/t/p/w185/${props.cast.profile_path}`

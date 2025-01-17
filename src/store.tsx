@@ -19,7 +19,7 @@ export const FiltersContext = React.createContext<FiltersContextObj>({
     category: "movie",
     section: "popular",
     adult: false,
-    page: 1,
+    page: 1 as number,
     dateStart: new Date().toDateString(),
     dateEnd: new Date().toDateString(),
     sortBy: "popularity",
@@ -28,7 +28,7 @@ export const FiltersContext = React.createContext<FiltersContextObj>({
   updateFilter: (filter: Filter) => {},
   updateFilterProperty: (
     property: keyof Filter,
-    newValue: string | number | boolean
+    newValue: number | string | boolean
   ) => {},
 });
 
@@ -44,7 +44,7 @@ const FiltersContextProvider: React.FC<Props> = ({ children }: Props) => {
     category: "movie",
     section: "popular",
     adult: false,
-    page: 1,
+    page: 1 as number,
     dateStart: new Date(0).toISOString().slice(0, 10),
     dateEnd: new Date().toISOString().slice(0, 10),
     sortBy: "popularity",
@@ -57,7 +57,7 @@ const FiltersContextProvider: React.FC<Props> = ({ children }: Props) => {
 
   function handleUpdateFilterProperty(
     property: keyof Filter,
-    newValue: string | number | boolean
+    newValue: number | string | boolean
   ) {
     setFilter((oldFilter) => {
       const newFilter = { ...oldFilter };

@@ -1,6 +1,7 @@
+import { Company } from "./Company";
 import { Genre } from "./Genre";
 
-export type Detail = {
+export interface Detail {
   adult: boolean;
   backdrop_path: string | null;
   created_by: {
@@ -11,7 +12,7 @@ export type Detail = {
   episode_run_time: number[];
   first_air_date: string;
   genres: Genre[];
-  homepage: string | null;
+  homepage: string;
   id: number;
   languages: string[];
   last_air_date: string;
@@ -46,12 +47,7 @@ export type Detail = {
   //     show_id: number;
   //     still_path: string | null;
   //   } | null;
-  networks: {
-    id: number;
-    logo_path: string | null;
-    name: string;
-    origin_country: string;
-  }[];
+  networks: Company[];
   number_of_episodes: number;
   number_of_seasons: number;
   origin_country: string[];
@@ -95,4 +91,4 @@ export type Detail = {
   runtime: number;
   title: string;
   video: boolean;
-};
+}

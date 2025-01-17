@@ -1,4 +1,4 @@
-export type Filter = {
+export interface Filter {
   genreId: number;
   category: string;
   english: boolean;
@@ -9,4 +9,4 @@ export type Filter = {
   dateEnd: string;
   sortBy: string;
   rating: number;
-};
+}

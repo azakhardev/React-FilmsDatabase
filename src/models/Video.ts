@@ -1,4 +1,4 @@
-export type Video = {
+export interface Video {
   id: string;
   key: string;
   name: string;
@@ -7,4 +7,4 @@ export type Video = {
   type: string;
   official: boolean;
   published_at: string;
-};
+}

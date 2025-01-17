@@ -1,4 +1,4 @@
-export type Cast = {
+export interface Cast {
   adult: boolean;
   gender: number;
   id: number;
@@ -11,4 +11,4 @@ export type Cast = {
   character: string;
   credit_id: string;
   order: number;
-};
+}
