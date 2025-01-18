@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { FiltersContext } from "../store";
 import { getCast } from "../http/api-calls";
 import ErrorBlock from "./ErrorBlock";
@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import { motion } from "framer-motion";
 
 const Cast: React.FC<{ id: string }> = (props) => {
+  const divRef = useRef<HTMLDivElement>(null);
   const context = useContext(FiltersContext);
   const [offset, setOffset] = useState(0);
 
@@ -29,6 +30,7 @@ const Cast: React.FC<{ id: string }> = (props) => {
   return (
     <div className="overflow-x-hidden relative">
       <motion.div
+        ref={divRef}
         animate={{ left: offset * 250 }}
         className="flex flex-row gap-2 relative"
       >
@@ -48,11 +50,10 @@ const Cast: React.FC<{ id: string }> = (props) => {
         </button>
         <button
           onClick={() => {
-            console.log((castQuery.data!.length * 160) / window.innerWidth);
-            console.log((Math.abs(offset) * 160) / window.innerWidth);
+            const lastChild = divRef.current!.lastChild as HTMLDivElement;
             if (
-              (castQuery.data!.length * 160) / window.innerWidth >
-              (Math.abs(offset) * 160) / window.innerWidth
+              lastChild.offsetLeft + 154 >
+              Math.abs(divRef.current!.offsetLeft - divRef.current!.offsetWidth)
             )
               changeOffset(1);
           }}
