@@ -1,4 +1,5 @@
 import { Detail } from "../models/Detail";
+import Videos from "./Videos";
 
 const DetailOverview: React.FC<{ data: Detail }> = (props) => {
   // const genres: Genre[] = JSON.parse(localStorage.getItem("genres")!);
@@ -10,11 +11,30 @@ const DetailOverview: React.FC<{ data: Detail }> = (props) => {
         {props.data.title ?? props.data.name}
       </h2>
       <h4 className="text-center text-[20px] italic">{props.data.tagline}</h4>
-      <div className="flex flex-col gap-[32px] md:grid md:grid-cols-2">
-        <div className="flex flex-col gap-2 md:block">
+      <div className="flex flex-col gap-2 justify-center items-center visible xl:hidden">
+        <div>
           <img
             src={`https://image.tmdb.org/t/p/w500/${props.data.poster_path}`}
           />
+        </div>
+        <div className="flex flex-row gap-2 flex-wrap mt-1 md:my-3">
+          {props.data.genres.map((g) => (
+            <div
+              className="px-4 py-2 rounded-[16px] bg-blue-500 text-[#E8E8E8] text-center capitalize"
+              key={g.id}
+            >
+              {g.name}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col gap-[32px] md:grid md:grid-cols-2 xl:grid-cols-3">
+        <div className="xl:flex flex-col gap-2 hidden xl:visible">
+          <div>
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${props.data.poster_path}`}
+            />
+          </div>
           <div className="flex flex-row gap-2 flex-wrap mt-1 md:my-3">
             {props.data.genres.map((g) => (
               <div
@@ -92,7 +112,10 @@ const DetailOverview: React.FC<{ data: Detail }> = (props) => {
               {props.data.production_companies.map(
                 (c) =>
                   c.logo_path !== null && (
-                    <div className="flex w-[140px] h-[100px] flex-col gap-2 justify-center items-center bg-white p-5 rounded-[50%] cursor-pointer">
+                    <div
+                      key={c.id}
+                      className="flex w-[140px] h-[100px] flex-col gap-2 justify-center items-center bg-white p-5 rounded-[50%] cursor-pointer"
+                    >
                       <img
                         className="w-[100%] object-fill"
                         src={`https://image.tmdb.org/t/p/original/${c.logo_path}`}
@@ -105,6 +128,7 @@ const DetailOverview: React.FC<{ data: Detail }> = (props) => {
             <p className="text-justify">{props.data.overview}</p>
           </div>
         </div>
+        <Videos id={props.data.id} />
       </div>
     </div>
   );

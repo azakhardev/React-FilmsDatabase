@@ -24,11 +24,12 @@ const Cast: React.FC<{ id: string }> = (props) => {
   }
 
   function changeOffset(value: number) {
-    setOffset((oldOffset) => oldOffset - value);
+    setOffset((oldOffset) => oldOffset + value);
   }
 
   return (
-    <div className="overflow-x-hidden relative">
+    <div className="overflow-x-hidden relative my-4">
+      <h3 className="font-bold text-[24px] text-white">Cast:</h3>
       <motion.div
         ref={divRef}
         animate={{ left: offset * 250 }}
@@ -40,27 +41,39 @@ const Cast: React.FC<{ id: string }> = (props) => {
           <SpinningLoader />
         )}
       </motion.div>
-      <div className="flex justify-between">
-        <button
-          onClick={() => {
-            if (offset < 0) changeOffset(-1);
-          }}
-        >
-          Prev
-        </button>
-        <button
-          onClick={() => {
-            const lastChild = divRef.current!.lastChild as HTMLDivElement;
-            if (
-              lastChild.offsetLeft + 154 >
-              Math.abs(divRef.current!.offsetLeft - divRef.current!.offsetWidth)
-            )
-              changeOffset(1);
-          }}
-        >
-          Next
-        </button>
-      </div>
+      {castQuery.data && castQuery.data?.length > 0 ? (
+        <div className="flex justify-between">
+          <button
+            onClick={() => {
+              if (offset < 0) changeOffset(1);
+            }}
+          >
+            <i
+              className="bx bx-left-arrow-circle"
+              style={{ color: "#325eea", fontSize: 50 }}
+            ></i>
+          </button>
+          <button
+            onClick={() => {
+              const lastChild = divRef.current!.lastChild as HTMLDivElement;
+              if (
+                lastChild.offsetLeft + 154 >
+                Math.abs(
+                  divRef.current!.offsetLeft - divRef.current!.offsetWidth
+                )
+              )
+                changeOffset(-1);
+            }}
+          >
+            <i
+              className="bx bx-right-arrow-circle"
+              style={{ color: "#325eea", fontSize: 50 }}
+            ></i>
+          </button>
+        </div>
+      ) : (
+        <div className="flex justify-center">Missing cast information.</div>
+      )}
     </div>
   );
 };

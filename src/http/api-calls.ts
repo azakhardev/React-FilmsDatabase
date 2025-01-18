@@ -201,7 +201,7 @@ export async function getSimilar(
 }
 
 export async function getVideos(
-  id: string,
+  id: number,
   category: string
 ): Promise<Video[]> {
   const url = `https://api.themoviedb.org/3/${category}/${id}/videos?language=en-US`;
