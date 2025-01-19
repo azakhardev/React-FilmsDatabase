@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getDetail, getSimilar, getVideos } from "../http/api-calls";
 import { useContext, useEffect } from "react";
 import { FiltersContext } from "../store";
@@ -32,6 +32,15 @@ const DetailPage: React.FC<{}> = (props) => {
     <div className="mx-2 flex my-1 md:my-4 xl:my-8 flex-col justify-center text-[#A6A6A6] md:mx-[100px] xl:mx-[150px] 2xl:mx-[200px]">
       {!detailQuery.isLoading && detailQuery.data ? (
         <>
+          <Link
+            to={"/"}
+            className="sticky md:absolute top-[10px] left-[10px] px-5 py-2 bg-blue-500 rounded z-[1] flex justify-center"
+          >
+            <i
+              className="bx bx-home-alt-2 text-[32px]"
+              style={{ color: "white" }}
+            ></i>
+          </Link>
           <DetailOverviev data={detailQuery.data} />
           <Cast id={id!} />
           {/* <Videos id={id!} /> */}

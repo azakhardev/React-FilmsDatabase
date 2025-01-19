@@ -4,7 +4,6 @@ import Videos from "./Videos";
 const DetailOverview: React.FC<{ data: Detail }> = (props) => {
   // const genres: Genre[] = JSON.parse(localStorage.getItem("genres")!);
 
-  console.log(props.data);
   return (
     <div>
       <h2 className="text-center text-[32px] text-[#F05454] font-bold">
@@ -46,7 +45,7 @@ const DetailOverview: React.FC<{ data: Detail }> = (props) => {
             ))}
           </div>
         </div>
-        <div className="flex justify-end md:max-w-[400px] xl:max-w-[620px]">
+        <div className="flex justify-start px-[5%] md:px-0 md:max-w-[400px] xl:max-w-[620px]">
           <div className="text-[#E8E8E8]">
             <p>
               <strong className=" text-[17px]">Home Page:</strong>
@@ -125,7 +124,11 @@ const DetailOverview: React.FC<{ data: Detail }> = (props) => {
                   )
               )}
             </div>
-            <p className="text-justify">{props.data.overview}</p>
+            <p className="text-justify">
+              {props.data.overview !== ""
+                ? props.data.overview
+                : "There is no overview for this move so far."}
+            </p>
           </div>
         </div>
         <Videos id={props.data.id} />

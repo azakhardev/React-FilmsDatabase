@@ -28,7 +28,9 @@ const Videos: React.FC<{ id: number }> = (props) => {
 
   return (
     <div className="flex flex-col gap-5">
-      {!videosQuery.isLoading && videosQuery.data ? (
+      {!videosQuery.isLoading &&
+      videosQuery.data &&
+      videosQuery.data.length > 0 ? (
         <>
           <div className="flex-1">
             <iframe
@@ -43,22 +45,27 @@ const Videos: React.FC<{ id: number }> = (props) => {
             ></iframe>
           </div>
           <div className="flex-1 grid grid-cols-2 grid-rows-2 gap-2">
-            {videosQuery.data.map((v) => (
-              <div
-                key={v.key}
-                className="flex-1 flex justify-center cursor-pointer"
-                onClick={() => handlePlay(v.key)}
-              >
-                <iframe
-                  width="100%"
-                  src={`https://www.youtube.com/embed/${v.key}`}
-                  title="YouTube video player"
-                  style={{ pointerEvents: "none" }}
-                ></iframe>
-              </div>
-            ))}
+            {videosQuery.data.length > 1 &&
+              videosQuery.data.map((v) => (
+                <div
+                  key={v.key}
+                  className="flex-1 flex justify-center cursor-pointer"
+                  onClick={() => handlePlay(v.key)}
+                >
+                  <iframe
+                    width="100%"
+                    src={`https://www.youtube.com/embed/${v.key}`}
+                    title="YouTube video player"
+                    style={{ pointerEvents: "none" }}
+                  ></iframe>
+                </div>
+              ))}
           </div>
         </>
+      ) : !videosQuery.isLoading && videosQuery.data ? (
+        <div className="bg-slate-500 rounded-[25px] flex h-[100%] justify-center items-center text-white text-[25px] text-center">
+          There are no trailers for this movie
+        </div>
       ) : (
         <SpinningLoader />
       )}

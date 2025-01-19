@@ -6,13 +6,10 @@ import { Link } from "react-router-dom";
 const Card: React.FC<{
   movie: Movie;
   minWidth: number;
+  className?: string;
 }> = (props) => {
-  const minW = `min-w-[${props.minWidth}px]`;
   return (
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      className={`rounded-2xl p-5 border-solid border-[#3B1C32] border-[1px] ${minW} max-w-[420px] bg-[#6A1E55] max-h-[1000px] overflow-hidden text-[#F0F0F0]`}
-    >
+    <motion.div whileHover={{ scale: 1.05 }} {...props}>
       <Link
         to={`/detail/${props.movie.id}`}
         className="flex flex-col gap-1 cursor-pointer"

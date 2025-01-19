@@ -33,7 +33,7 @@ const MoviesList: React.FC<{ filtering: boolean }> = (props) => {
         {!moviesQuery.isLoading && moviesQuery.data ? (
           moviesQuery.data.movies.map((movie) => (
             <Card
-              filtering={props.filtering}
+              className={`rounded-2xl p-5 border-solid border-[#3B1C32] border-[1px] min-w-[240px] max-w-[420px] bg-[#6A1E55] max-h-[1000px] overflow-hidden text-[#F0F0F0]`}
               minWidth={300}
               key={movie.id}
               movie={movie}
