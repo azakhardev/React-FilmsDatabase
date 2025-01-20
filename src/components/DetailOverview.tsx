@@ -37,7 +37,7 @@ const DetailOverview: React.FC<{ data: Detail }> = (props) => {
           <div className="flex flex-row gap-2 flex-wrap mt-1 md:my-3">
             {props.data.genres.map((g) => (
               <div
-                className="px-4 py-2 rounded-[16px] bg-blue-500 text-[#E8E8E8] text-center capitalize"
+                className="px-4 py-2 rounded-[16px] bg-[#A05283] text-[#E8E8E8] text-center capitalize"
                 key={g.id}
               >
                 {g.name}
@@ -107,7 +107,7 @@ const DetailOverview: React.FC<{ data: Detail }> = (props) => {
             <strong className=" block text-[17px]">
               Production Companies:{" "}
             </strong>
-            <div className="flex flex-row flex-wrap gap-5">
+            <div className="flex flex-row flex-wrap gap-5 pt-4">
               {props.data.production_companies.map(
                 (c) =>
                   c.logo_path !== null && (
@@ -124,7 +124,7 @@ const DetailOverview: React.FC<{ data: Detail }> = (props) => {
                   )
               )}
             </div>
-            <p className="text-justify">
+            <p className="text-justify mt-6">
               {props.data.overview !== ""
                 ? props.data.overview
                 : "There is no overview for this move so far."}

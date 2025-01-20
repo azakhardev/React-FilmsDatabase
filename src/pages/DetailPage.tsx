@@ -34,7 +34,7 @@ const DetailPage: React.FC<{}> = (props) => {
         <>
           <Link
             to={"/"}
-            className="sticky md:absolute top-[10px] left-[10px] px-5 py-2 bg-blue-500 rounded z-[1] flex justify-center"
+            className="sticky md:absolute top-[10px] left-[10px] px-5 py-2 bg-[#A05283] rounded z-[1] flex justify-center"
           >
             <i
               className="bx bx-home-alt-2 text-[32px]"

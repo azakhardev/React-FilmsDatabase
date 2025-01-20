@@ -6,11 +6,11 @@ import ErrorBlock from "./ErrorBlock";
 import SpinningLoader from "./SpinningLoader";
 import Card from "./Card";
 import { motion } from "framer-motion";
+import { Movie } from "../models/Movie";
 
 const Similar: React.FC<{ id: string }> = (props) => {
-  const [isMouseDown, setIsMouseDown] = useState(false);
-  const [offset, setOffset] = useState(0); // Tracks the scroll position
-  const startX = useRef(0); // Tracks the initial mouse position during drag
+  const divRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
 
   const context = useContext(FiltersContext);
   const similarQuery = useQuery({
@@ -28,48 +28,63 @@ const Similar: React.FC<{ id: string }> = (props) => {
     );
   }
 
-  const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-    setIsMouseDown(true);
-    startX.current = event.clientX;
-  };
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (isMouseDown) {
-      const distance = event.clientX - startX.current;
-      setOffset((prevOffset) => prevOffset + distance);
-      startX.current = event.clientX;
-    }
-  };
-
-  const handleMouseUp = () => {
-    setIsMouseDown(false);
-  };
+  function changeOffset(value: number) {
+    setOffset((oldOffset) => oldOffset + value);
+  }
 
   return (
-    <div
-      className="overflow-x-hidden py-5 my-5 relative"
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseUp}
-      onMouseUp={handleMouseUp}
-      draggable={false}
-    >
+    <div className="overflow-x-hidden relative">
       <h3 className="font-bold text-[24px] text-white mb-4">Cast:</h3>
       {!similarQuery.isLoading && similarQuery.data ? (
-        <motion.div
-          animate={{ left: offset }}
-          transition={{ type: "keyframes" }}
-          className="flex flex-row gap-2 relative cursor-grab"
-        >
-          {similarQuery.data.map((s) => (
-            <Card
-              minWidth={240}
-              key={s.id}
-              movie={s}
-              className={`rounded-2xl p-5 border-solid select-none border-[#3B1C32] border-[1px] min-w-[240px] bg-[#6A1E55] max-h-[1000px] overflow-hidden text-[#F0F0F0]`}
-            />
-          ))}
-        </motion.div>
+        <>
+          <motion.div
+            ref={divRef}
+            animate={{ left: offset * 495 }}
+            transition={{ type: "keyframes" }}
+            className="flex flex-row gap-2 relative cursor-pointer"
+          >
+            {similarQuery.data.map((s: Movie) => {
+              s.overview = "Click for more details";
+              return (
+                <Card
+                  minWidth={240}
+                  key={s.id}
+                  movie={s}
+                  className={`rounded-2xl p-5 border-solid select-none border-[#3B1C32] border-[1px] min-w-[240px] bg-[#6A1E55] max-h-[1000px] overflow-hidden text-[#F0F0F0]`}
+                />
+              );
+            })}
+          </motion.div>
+          <div className="flex justify-between mt-2">
+            <button
+              onClick={() => {
+                if (offset < 0) changeOffset(1);
+              }}
+            >
+              <i
+                className="bx bx-left-arrow-circle"
+                style={{ color: "#A05283", fontSize: 50 }}
+              ></i>
+            </button>
+            <button
+              onClick={() => {
+                const lastChild = divRef.current!.lastChild as HTMLDivElement;
+                if (
+                  lastChild.offsetLeft + 240 >
+                  Math.abs(
+                    divRef.current!.offsetLeft - divRef.current!.offsetWidth
+                  )
+                )
+                  changeOffset(-1);
+              }}
+            >
+              <i
+                className="bx bx-right-arrow-circle"
+                style={{ color: "#A05283", fontSize: 50 }}
+              ></i>
+            </button>
+          </div>
+        </>
       ) : (
         <SpinningLoader />
       )}

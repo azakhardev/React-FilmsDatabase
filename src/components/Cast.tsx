@@ -32,7 +32,7 @@ const Cast: React.FC<{ id: string }> = (props) => {
       <h3 className="font-bold text-[24px] text-white">Cast:</h3>
       <motion.div
         ref={divRef}
-        animate={{ left: offset * 250 }}
+        animate={{ left: offset * 304 }}
         className="flex flex-row gap-2 relative"
       >
         {!castQuery.isLoading && castQuery.data ? (
@@ -42,7 +42,7 @@ const Cast: React.FC<{ id: string }> = (props) => {
         )}
       </motion.div>
       {castQuery.data && castQuery.data?.length > 0 ? (
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-2">
           <button
             onClick={() => {
               if (offset < 0) changeOffset(1);
@@ -50,7 +50,7 @@ const Cast: React.FC<{ id: string }> = (props) => {
           >
             <i
               className="bx bx-left-arrow-circle"
-              style={{ color: "#325eea", fontSize: 50 }}
+              style={{ color: "#A05283", fontSize: 50 }}
             ></i>
           </button>
           <button
@@ -67,7 +67,7 @@ const Cast: React.FC<{ id: string }> = (props) => {
           >
             <i
               className="bx bx-right-arrow-circle"
-              style={{ color: "#325eea", fontSize: 50 }}
+              style={{ color: "#A05283", fontSize: 50 }}
             ></i>
           </button>
         </div>
