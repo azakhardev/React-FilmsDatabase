@@ -14,7 +14,7 @@ const Cast: React.FC<{ id: string }> = (props) => {
 
   const castQuery = useQuery({
     queryKey: ["detail-cast", props.id],
-    queryFn: (metaObj) => getCast(props.id, context.filter.category),
+    queryFn: () => getCast(props.id, context.filter.category),
   });
 
   if (castQuery.isError) {

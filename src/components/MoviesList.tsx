@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import React, { useContext } from "react";
 import { getDiscovery, getMovies } from "../http/api-calls";
 import ErrorBlock from "./ErrorBlock";
 import SpinningLoader from "./SpinningLoader";
@@ -13,7 +13,7 @@ const MoviesList: React.FC<{ filtering: boolean }> = (props) => {
 
   const moviesQuery = useQuery({
     queryKey: ["movies", filter, props.filtering],
-    queryFn: (metaObject) => {
+    queryFn: () => {
       return props.filtering ? getDiscovery(filter) : getMovies(filter);
     },
   });

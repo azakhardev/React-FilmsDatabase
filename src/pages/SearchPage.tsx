@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import MoviesList from "../components/MoviesList";
 import { motion } from "framer-motion";
 import FilterComponent from "../components/Filter";
 import CategorySections from "../components/CategoryItems";
 import { FiltersContext } from "../store";
 
-const SearchPage: React.FC<{}> = (props) => {
+const SearchPage: React.FC<{}> = () => {
   const context = useContext(FiltersContext);
 
   return (

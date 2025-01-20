@@ -10,7 +10,7 @@ const Videos: React.FC<{ id: number }> = (props) => {
 
   const videosQuery = useQuery({
     queryKey: ["detail-videos", props.id],
-    queryFn: (metaObj) => getVideos(props.id, context.filter.category),
+    queryFn: () => getVideos(props.id, context.filter.category),
   });
 
   if (videosQuery.isError) {

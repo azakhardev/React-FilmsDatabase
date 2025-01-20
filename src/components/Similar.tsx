@@ -15,7 +15,7 @@ const Similar: React.FC<{ id: string }> = (props) => {
   const context = useContext(FiltersContext);
   const similarQuery = useQuery({
     queryKey: ["detail-similar", props.id],
-    queryFn: (metaObj) =>
+    queryFn: () =>
       getSimilar(props.id, context.filter.category, context.filter.english),
   });
 

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { getDetail, getSimilar, getVideos } from "../http/api-calls";
-import { useContext, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { getDetail } from "../http/api-calls";
+import { useContext } from "react";
 import { FiltersContext } from "../store";
 import SpinningLoader from "../components/SpinningLoader";
 import ErrorBlock from "../components/ErrorBlock";
@@ -9,13 +9,13 @@ import DetailOverviev from "../components/DetailOverview";
 import Similar from "../components/Similar";
 import Cast from "../components/Cast";
 
-const DetailPage: React.FC<{}> = (props) => {
+const DetailPage: React.FC<{}> = () => {
   const { id } = useParams();
   const context = useContext(FiltersContext);
 
   const detailQuery = useQuery({
     queryKey: ["detail", id],
-    queryFn: (metaObj) =>
+    queryFn: () =>
       getDetail(id!, context.filter.category, context.filter.english),
   });
 

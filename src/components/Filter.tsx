@@ -13,7 +13,7 @@ const FilterComponent: React.FC<{
 
   const genresQuery = useQuery({
     queryKey: ["genres", context.filter.category],
-    queryFn: (metaObject) => getGenres(context.filter.category),
+    queryFn: () => getGenres(context.filter.category),
   });
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

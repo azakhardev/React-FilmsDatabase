@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef } from "react";
 import { FiltersContext } from "../store";
 
 const NavigationButtons: React.FC<{ totalPages: number }> = (props) => {
