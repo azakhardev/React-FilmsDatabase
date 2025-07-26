@@ -1,50 +1,38 @@
-# React + TypeScript + Vite
+# 🎬 React Films Database
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**React Films Database** je můj první větší samostatný projekt vytvořený pomocí **React** a **TypeScriptu**. Aplikace umožňuje uživatelům vyhledávat filmy a seriály na základě různých kritérií pomocí veřejného API [TMDB](https://www.themoviedb.org/), a pomáhá tak najít inspiraci, když zrovna nevíte, na co koukat.
 
-Currently, two official plugins are available:
+👉 Vyzkoušej aplikaci zde: [filmsdb.zakharchenkoartem.cz](https://filmsdb.zakharchenkoartem.cz)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Funkce
 
-## Expanding the ESLint configuration
+- Vyhledávání filmů a seriálů podle názvu, žánru, roku, hodnocení atd.
+- Detailní zobrazení filmu s popiskem a dostupným trailerem
+- Přehledné uživatelské rozhraní s animacemi pomocí **Framer Motion**
+- Filtrování na straně klienta s využitím Context API
+- Podpora pro **TypeScript** od začátku vývoje
+- Moderní React stack s **Tanstack Query** pro práci s daty
+- Responzivní design optimalizovaný pro desktop i mobil
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🛠 Použité technologie
 
-- Configure the top-level `parserOptions` property like this:
+- **React** (včetně React Hooks a Context API)
+- **TypeScript**
+- **Framer Motion** (animace)
+- **Tanstack Query** (správa dat z API)
+- **TMDB API** (zdroj filmových dat)
+- **Vite** nebo **Create React App** (dle použitého bundleru)
+- CSS / SCSS nebo jiná knihovna pro styling (doplň podle potřeby)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📌 Poznámky
+- API TMDB má omezené množství informací u některých titulů (zejména v češtině).
+- Hosting může být omezen kvótami — omluvte případné výpadky.
+- Některé komponenty a architektura by mohly být navrženy lépe – šlo ale o studijní projekt, kde jsem zkoušel nové věci v praxi.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 📚 Inspirace
+Projekt byl inspirován potřebou rychle najít film podle chuti a zároveň sloužil jako výuková platforma pro uplatnění znalostí získaných během kurzu Reactu a TypeScriptu.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+---
+Díky za návštěvu 👋
+Artem Zacharčenko
+https://zakharchenkoartem.cz
