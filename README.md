@@ -21,7 +21,7 @@
 - **Framer Motion** (animace)
 - **Tanstack Query** (správa dat z API)
 - **TMDB API** (zdroj filmových dat)
-- **Vite** nebo **Create React App** (dle použitého bundleru)
+- Build tool: **Vite**
 - CSS / SCSS nebo jiná knihovna pro styling (doplň podle potřeby)
 
 ## 📌 Poznámky
